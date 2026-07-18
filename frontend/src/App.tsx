@@ -9,13 +9,11 @@ import { DashboardPage } from "./pages/dashboard"
 import { RoleProtectedRoute } from "./components/auth/RoleProtectedRoute"
 import { TablesPage } from "./pages/tables"
 import { MenuPage } from "./pages/menu"
-import {
-  OrdersPage,
-  KitchenPage,
-  PaymentsPage,
-  InventoryPage,
-  StaffPage
-} from "./pages/placeholders"
+import { OrdersPage } from "./pages/orders"
+import { KitchenPage } from "./pages/kitchen"
+import { PaymentsPage } from "./pages/payments"
+import { InventoryPage } from "./pages/inventory"
+import { StaffPage } from "./pages/staff"
 import { ThemeProvider } from "./components/theme/ThemeProvider"
 import { UnauthorizedPage } from "./pages/unauthorized"
 import "./App.css"

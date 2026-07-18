@@ -22,7 +22,11 @@ const getHeaders = () => {
 
 export const dataProvider: DataProvider = {
   getList: async ({ resource }) => {
-    const response = await fetch(`${API_URL}/${resource}`, {
+    let url = `${API_URL}/${resource}`
+    if (resource === "kitchen") {
+      url = `${API_URL}/orders/kitchen`
+    }
+    const response = await fetch(url, {
       headers: getHeaders(),
     })
     if (!response.ok) throw response
@@ -58,6 +62,18 @@ export const dataProvider: DataProvider = {
     if (resource === "tables" && typeof variables === "object" && variables !== null && "status" in variables) {
       url = `${API_URL}/${resource}/${id}/status`
       body = JSON.stringify((variables as any).status)
+    }
+
+    // Handle special case for order status update in OrdersController
+    if (resource === "orders" && typeof variables === "object" && variables !== null && "status" in variables) {
+      url = `${API_URL}/${resource}/${id}/status`
+      body = JSON.stringify((variables as any).status)
+    }
+
+    // Handle special case for inventory quantity update in InventoryController
+    if (resource === "inventory" && typeof variables === "object" && variables !== null && "quantity" in variables) {
+      url = `${API_URL}/${resource}/${id}`
+      body = JSON.stringify(Number((variables as any).quantity))
     }
 
     const response = await fetch(url, {
