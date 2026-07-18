@@ -1,0 +1,22 @@
+# User-secret and environment files
+.env
+.env.*
+
+# Build outputs
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE / Editor directories
+.idea/
+.vs/
+.vscode/
+
+# Local configuration files
+appsettings.Development.json
