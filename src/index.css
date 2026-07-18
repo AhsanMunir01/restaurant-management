@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+
+  /* High-end warm restaurant bronze gold */
+  --primary: 35 90% 42%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 35 15% 96%;
+  --secondary-foreground: 240 10% 3.9%;
+
+  --muted: 35 10% 96%;
+  --muted-foreground: 25 5% 45%;
+
+  --accent: 35 15% 94%;
+  --accent-foreground: 240 10% 3.9%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 20% 98%;
+
+  --border: 35 15% 90%;
+  --input: 35 15% 90%;
+  --ring: 35 90% 42%;
+
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Luxury Charcoal/Obsidian Dark Theme */
+  --background: 240 10% 3.9%;
+  --foreground: 35 20% 98%;
+
+  --card: 240 10% 5.9%;
+  --card-foreground: 35 20% 98%;
+
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 35 20% 98%;
+
+  /* Radiant Warm Bistro Amber Gold */
+  --primary: 38 95% 58%;
+  --primary-foreground: 240 10% 3.9%;
+
+  --secondary: 240 5.9% 10%;
+  --secondary-foreground: 35 20% 98%;
+
+  --muted: 240 5.9% 9%;
+  --muted-foreground: 240 5% 65%;
+
+  --accent: 240 5.9% 14%;
+  --accent-foreground: 35 20% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 35 20% 98%;
+
+  --border: 240 5.9% 14%;
+  --input: 240 5.9% 14%;
+  --ring: 38 95% 58%;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
