@@ -59,7 +59,7 @@ export const InventoryPage: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-primary">
+          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
             <Boxes className="h-5 w-5" />
           </div>
           <div>
@@ -69,7 +69,7 @@ export const InventoryPage: React.FC = () => {
         </div>
         <button
           onClick={() => refetch()}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-slate-900 transition-all font-medium cursor-pointer"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
         >
           <RefreshCw className="h-4 w-4" />
           <span>Refresh</span>
@@ -117,7 +117,7 @@ export const InventoryPage: React.FC = () => {
                     </div>
                     <button
                       onClick={() => handleEditClick(item)}
-                      className="p-2 rounded-lg bg-slate-900 border border-border text-muted-foreground hover:text-foreground hover:bg-slate-950 transition-all cursor-pointer"
+                      className="p-2 rounded-lg bg-background border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-all cursor-pointer"
                     >
                       <Edit3 className="h-4 w-4" />
                     </button>
@@ -128,7 +128,7 @@ export const InventoryPage: React.FC = () => {
                     <div className="flex justify-between text-[10px] text-muted-foreground font-semibold">
                       <span>Safety Reorder Level: {item.reorderLevel} {item.unit}</span>
                     </div>
-                    <div className="w-full h-2 rounded bg-slate-900 overflow-hidden">
+                    <div className="w-full h-2 rounded bg-muted overflow-hidden">
                       <div
                         className={`h-full rounded transition-all duration-500 ${
                           isLow ? "bg-rose-500" : "bg-primary"
@@ -164,7 +164,7 @@ export const InventoryPage: React.FC = () => {
                 min="0"
                 value={newQuantity}
                 onChange={(e) => setNewQuantity(e.target.value)}
-                className="w-full bg-slate-900 border border-border rounded-lg p-2.5 text-sm text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-background border border-input rounded-lg p-2.5 text-sm text-foreground focus:outline-none focus:border-primary"
                 required
               />
             </div>
@@ -173,7 +173,7 @@ export const InventoryPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-slate-900 transition-all font-medium cursor-pointer"
+                className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
               >
                 Cancel
               </button>

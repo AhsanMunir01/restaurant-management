@@ -40,6 +40,7 @@ export const PaymentsPage: React.FC = () => {
   const { mutate: createPayment } = useCreate()
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null)
   const [paymentMethod, setPaymentMethod] = useState<string>("card")
   const [activeTab, setActiveTab] = useState<"checkout" | "history">("checkout")
@@ -52,8 +53,9 @@ export const PaymentsPage: React.FC = () => {
 
   const handleCheckoutSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!selectedOrder) return
+    if (!selectedOrder || isSubmitting) return
 
+    setIsSubmitting(true)
     createPayment({
       resource: "payments",
       values: {
@@ -70,6 +72,10 @@ export const PaymentsPage: React.FC = () => {
         setSelectedOrder(null)
         refetchOrders()
         refetchPayments()
+        setIsSubmitting(false)
+      },
+      onError: () => {
+        setIsSubmitting(false)
       }
     })
   }

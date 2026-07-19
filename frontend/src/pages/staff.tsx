@@ -78,17 +78,17 @@ export const StaffPage: React.FC = () => {
   const getRoleBadge = (r: string) => {
     switch (r) {
       case "admin":
-        return "bg-rose-500/10 text-rose-500 border border-rose-500/20"
+        return "bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-500/20"
       case "manager":
-        return "bg-blue-500/10 text-blue-500 border border-blue-500/20"
+        return "bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20"
       case "chef":
-        return "bg-amber-500/10 text-amber-550 border border-amber-500/20"
+        return "bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20"
       case "waiter":
-        return "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
+        return "bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/20"
       case "cashier":
-        return "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20"
+        return "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20"
       default:
-        return "bg-slate-500/10 text-slate-400 border border-slate-500/20"
+        return "bg-slate-50 dark:bg-slate-500/10 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-500/20"
     }
   }
 
@@ -96,7 +96,7 @@ export const StaffPage: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-primary">
+          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
             <Users className="h-5 w-5" />
           </div>
           <div>
@@ -107,7 +107,7 @@ export const StaffPage: React.FC = () => {
         <div className="flex gap-2">
           <button
             onClick={() => refetch()}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-slate-900 transition-all font-medium cursor-pointer"
+            className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
           >
             <RefreshCw className="h-4 w-4" />
             <span>Refresh</span>
@@ -137,7 +137,7 @@ export const StaffPage: React.FC = () => {
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="bg-slate-900/60 border-b border-border text-[11px] text-muted-foreground uppercase tracking-wider font-bold">
+                <thead className="bg-muted/85 border-b border-border text-[11px] text-muted-foreground uppercase tracking-wider font-bold">
                   <tr>
                     <th className="p-4">Staff Member</th>
                     <th className="p-4">Username</th>
@@ -192,7 +192,7 @@ export const StaffPage: React.FC = () => {
               <span>Add Staff Profile</span>
             </DialogTitle>
             <DialogDescription className="text-muted-foreground text-xs">
-              This creates a profile with password default credentials: <code className="bg-slate-900 px-1 py-0.5 rounded text-primary">password123</code>
+              This creates a profile with password default credentials: <code className="bg-muted px-1 py-0.5 rounded text-primary">password123</code>
             </DialogDescription>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="space-y-4 pt-2">
@@ -203,7 +203,7 @@ export const StaffPage: React.FC = () => {
                 value={fullName}
                 onChange={(e) => setFullName(e.target.value)}
                 placeholder="Jane Doe"
-                className="w-full bg-slate-900 border border-border rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-background border border-input rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
                 required
               />
             </div>
@@ -215,7 +215,7 @@ export const StaffPage: React.FC = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="janedoe"
-                className="w-full bg-slate-900 border border-border rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-background border border-input rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
                 required
               />
             </div>
@@ -227,7 +227,7 @@ export const StaffPage: React.FC = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="jane@rms.com"
-                className="w-full bg-slate-900 border border-border rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-background border border-input rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
                 required
               />
             </div>
@@ -237,7 +237,7 @@ export const StaffPage: React.FC = () => {
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="w-full bg-slate-900 border border-border rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
+                className="w-full bg-background border border-input rounded-lg p-2 text-sm text-foreground focus:outline-none focus:border-primary"
               >
                 <option value="waiter">Waiter / Runner</option>
                 <option value="chef">Kitchen Chef</option>
@@ -251,7 +251,7 @@ export const StaffPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-slate-900 transition-all font-medium cursor-pointer"
+                className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
               >
                 Cancel
               </button>

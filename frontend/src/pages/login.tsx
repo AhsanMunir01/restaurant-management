@@ -129,7 +129,7 @@ export const LoginPage: React.FC = () => {
         </Card>
 
         {/* Demo Fast Login Selector */}
-        <div className="rounded-xl border border-slate-850 bg-slate-900/35 p-6 backdrop-blur-sm">
+        <div className="rounded-xl border border-slate-800 bg-slate-900/35 p-6 backdrop-blur-sm">
           <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5 justify-center">
             <ChefHat className="h-3.5 w-3.5" />
             Developer Testing / Quick Login
@@ -147,7 +147,7 @@ export const LoginPage: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={() => handleQuickLogin("manager@rms.com", "manager123")}
-              className="border-slate-800 hover:bg-indigo-500/10 hover:text-indigo-400 transition-all text-slate-300"
+              className="border-slate-800 hover:bg-sky-500/10 hover:text-sky-400 transition-all text-slate-300"
             >
               Manager <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-slate-800 text-slate-300 border-0">M</Badge>
             </Button>

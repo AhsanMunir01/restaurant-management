@@ -135,7 +135,7 @@ export const DashboardPage: React.FC = () => {
             <CardTitle className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
               Table Occupancy
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-indigo-500/10 text-indigo-500 dark:text-indigo-400 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 flex items-center justify-center">
               <Users className="h-4 w-4" />
             </div>
           </CardHeader>
@@ -143,7 +143,7 @@ export const DashboardPage: React.FC = () => {
             <div className="text-2xl font-extrabold text-foreground">
               {occupiedTablesCount} / {tables.length}
             </div>
-            <p className="text-xs text-indigo-500 dark:text-indigo-450 flex items-center gap-1 mt-1 font-medium">
+            <p className="text-xs text-sky-600 dark:text-sky-400 flex items-center gap-1 mt-1 font-medium">
               <span>
                 {tables.length > 0 ? Math.round((occupiedTablesCount / tables.length) * 100) : 0}% occupancy rate
               </span>
@@ -156,7 +156,7 @@ export const DashboardPage: React.FC = () => {
             <CardTitle className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
               Critical Stock
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-rose-500/10 text-rose-500 dark:text-rose-405 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 flex items-center justify-center">
               <Boxes className="h-4 w-4" />
             </div>
           </CardHeader>

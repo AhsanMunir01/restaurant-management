@@ -267,7 +267,7 @@ export const BaseLayout: React.FC<LayoutProps> = ({ children }) => {
               {theme === "dark" ? (
                 <Sun className="h-4 w-4 text-amber-500 animate-pulse" />
               ) : (
-                <Moon className="h-4 w-4 text-indigo-500" />
+                <Moon className="h-4 w-4 text-sky-500" />
               )}
             </Button>
 
