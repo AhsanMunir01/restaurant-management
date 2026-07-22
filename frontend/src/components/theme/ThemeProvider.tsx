@@ -30,13 +30,7 @@ export function ThemeProvider({
 
     root.classList.remove("light", "dark")
     root.classList.add(theme)
-
-    // Also update style colors if necessary
-    if (theme === "dark") {
-      root.style.colorScheme = "dark"
-    } else {
-      root.style.colorScheme = "light"
-    }
+    root.style.colorScheme = theme
   }, [theme])
 
   const setTheme = (theme: Theme) => {

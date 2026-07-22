@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useList, useUpdate } from "@refinedev/core"
+import { useList, useUpdate, usePermissions } from "@refinedev/core"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ChefHat, Play, CheckCircle, RefreshCw } from "lucide-react"
@@ -33,6 +33,7 @@ export const KitchenPage: React.FC = () => {
   const { data: kitchenData, isLoading, refetch } = useList<Order>({
     resource: "kitchen",
   })
+  const { data: role } = usePermissions<string>({})
 
   const { mutate: updateStatus } = useUpdate()
 
@@ -45,6 +46,8 @@ export const KitchenPage: React.FC = () => {
   }, [refetch])
 
   const orders = kitchenData?.data || []
+  const isChef = role === "chef"
+  const isWaiter = role === "waiter"
 
   // Filter orders by column
   const pendingOrders = orders.filter(o => o.status === "pending")
@@ -78,7 +81,7 @@ export const KitchenPage: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
+          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-foreground">
             <ChefHat className="h-5 w-5" />
           </div>
           <div>
@@ -86,6 +89,11 @@ export const KitchenPage: React.FC = () => {
             <p className="text-muted-foreground text-sm">Real-time order routing, preparation status, and timing logs.</p>
           </div>
         </div>
+        {!isChef && !isWaiter && (
+          <div className="rounded-lg border border-border bg-muted/40 px-3 py-2 text-xs font-medium text-muted-foreground">
+            View-only access. Order movement is restricted to kitchen and delivery roles.
+          </div>
+        )}
         <button
           onClick={() => refetch()}
           className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
@@ -101,14 +109,62 @@ export const KitchenPage: React.FC = () => {
             <div key={i} className="h-96 rounded-xl bg-card/50 border border-border animate-pulse" />
           ))}
         </div>
+      ) : isWaiter ? (
+        <div className="space-y-4 max-w-2xl mx-auto">
+          <div className="flex items-center justify-between bg-muted/40 p-3 rounded-lg border border-border">
+            <span className="font-bold text-foreground text-sm tracking-wider uppercase">Ready for Delivery</span>
+            <Badge className="bg-muted text-foreground border border-border font-bold">
+              {readyOrders.length} Tickets
+            </Badge>
+          </div>
+
+          {readyOrders.length === 0 ? (
+            <div className="text-center py-12 text-sm text-muted-foreground border border-dashed border-border rounded-xl bg-card/20">
+              No plates ready for delivery.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {readyOrders.map(order => (
+                <Card key={order.id} className="border-border bg-card text-foreground hover:border-primary/30 transition-all duration-300">
+                  <CardHeader className="flex flex-row justify-between items-start pb-2 border-b border-border/50">
+                    <div>
+                      <span className="font-extrabold text-sm">Order #{order.id}</span>
+                      <p className="text-[11px] text-muted-foreground">Table {order.table?.tableNumber || "N/A"}</p>
+                    </div>
+                    <Badge className="bg-muted text-foreground border border-border text-[9px] animate-pulse">
+                      Ready
+                    </Badge>
+                  </CardHeader>
+                  <CardContent className="pt-3 space-y-3">
+                    <div className="space-y-1.5">
+                      {order.orderItems.map((oi, idx) => (
+                        <div key={oi.id || idx} className="text-sm">
+                          <span className="font-bold text-primary">x{oi.quantity}</span> {oi.menuItem?.name}
+                          {oi.notes && <p className="text-xs text-muted-foreground italic font-medium ml-4">*{oi.notes}</p>}
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      onClick={() => handleAdvance(order.id, "served")}
+                      className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold transition-all mt-2 cursor-pointer"
+                    >
+                      <CheckCircle className="h-3 w-3" />
+                      <span>Deliver Order</span>
+                    </button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </div>
       ) : (
         <div className="grid gap-6 md:grid-cols-3 items-start">
           
           {/* COLUMN 1: PENDING ORDERS */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-amber-500/10 p-3 rounded-lg border border-amber-500/20">
-              <span className="font-bold text-amber-500 text-sm tracking-wider uppercase">Pending Queue</span>
-              <Badge className="bg-amber-500/20 text-amber-500 border-none font-bold">
+            <div className="flex items-center justify-between bg-muted/40 p-3 rounded-lg border border-border">
+              <span className="font-bold text-foreground text-sm tracking-wider uppercase">Pending Queue</span>
+              <Badge className="bg-muted text-foreground border border-border font-bold">
                 {pendingOrders.length} Tickets
               </Badge>
             </div>
@@ -119,13 +175,13 @@ export const KitchenPage: React.FC = () => {
                 </div>
               ) : (
                 pendingOrders.map(order => (
-                  <Card key={order.id} className="border-border bg-card text-foreground hover:border-amber-500/30 transition-all duration-300">
+                  <Card key={order.id} className="border-border bg-card text-foreground hover:border-primary/30 transition-all duration-300">
                     <CardHeader className="flex flex-row justify-between items-start pb-2 border-b border-border/50">
                       <div>
                         <span className="font-extrabold text-sm">Order #{order.id}</span>
                         <p className="text-[11px] text-muted-foreground">Table {order.table?.tableNumber || "N/A"}</p>
                       </div>
-                      <Badge className="bg-red-50 dark:bg-red-500/10 text-red-700 dark:text-red-500 border border-red-200 dark:border-red-500/20 text-[9px] animate-pulse">
+                      <Badge className="bg-muted text-foreground border border-border text-[9px] animate-pulse">
                         {getElapsedTime(order.createdAt)}
                       </Badge>
                     </CardHeader>
@@ -134,17 +190,19 @@ export const KitchenPage: React.FC = () => {
                         {order.orderItems.map((oi, idx) => (
                           <div key={oi.id || idx} className="text-sm">
                             <span className="font-bold text-primary">x{oi.quantity}</span> {oi.menuItem?.name}
-                            {oi.notes && <p className="text-xs text-rose-500 italic font-medium ml-4">*{oi.notes}</p>}
+                            {oi.notes && <p className="text-xs text-muted-foreground italic font-medium ml-4">*{oi.notes}</p>}
                           </div>
                         ))}
                       </div>
-                      <button
-                        onClick={() => handleAdvance(order.id, "cooking")}
-                        className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold transition-all mt-2 cursor-pointer"
-                      >
-                        <Play className="h-3 w-3" />
-                        <span>Start Cooking</span>
-                      </button>
+                      {isChef && (
+                        <button
+                          onClick={() => handleAdvance(order.id, "cooking")}
+                          className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold transition-all mt-2 cursor-pointer"
+                        >
+                          <Play className="h-3 w-3" />
+                          <span>Start Cooking</span>
+                        </button>
+                      )}
                     </CardContent>
                   </Card>
                 ))
@@ -154,9 +212,9 @@ export const KitchenPage: React.FC = () => {
 
           {/* COLUMN 2: COOKING ORDERS */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-blue-500/10 p-3 rounded-lg border border-blue-500/20">
-              <span className="font-bold text-blue-500 text-sm tracking-wider uppercase">In Progress</span>
-              <Badge className="bg-blue-500/20 text-blue-500 border-none font-bold">
+            <div className="flex items-center justify-between bg-muted/40 p-3 rounded-lg border border-border">
+              <span className="font-bold text-foreground text-sm tracking-wider uppercase">In Progress</span>
+              <Badge className="bg-muted text-foreground border border-border font-bold">
                 {cookingOrders.length} Tickets
               </Badge>
             </div>
@@ -167,13 +225,13 @@ export const KitchenPage: React.FC = () => {
                 </div>
               ) : (
                 cookingOrders.map(order => (
-                  <Card key={order.id} className="border-border bg-card text-foreground hover:border-blue-500/30 transition-all duration-300">
+                  <Card key={order.id} className="border-border bg-card text-foreground hover:border-primary/30 transition-all duration-300">
                     <CardHeader className="flex flex-row justify-between items-start pb-2 border-b border-border/50">
                       <div>
                         <span className="font-extrabold text-sm">Order #{order.id}</span>
                         <p className="text-[11px] text-muted-foreground">Table {order.table?.tableNumber || "N/A"}</p>
                       </div>
-                      <Badge className="bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20 text-[9px]">
+                      <Badge className="bg-muted text-foreground border border-border text-[9px]">
                         Active: {getElapsedTime(order.createdAt)}
                       </Badge>
                     </CardHeader>
@@ -182,17 +240,19 @@ export const KitchenPage: React.FC = () => {
                         {order.orderItems.map((oi, idx) => (
                           <div key={oi.id || idx} className="text-sm">
                             <span className="font-bold text-primary">x{oi.quantity}</span> {oi.menuItem?.name}
-                            {oi.notes && <p className="text-xs text-rose-500 italic font-medium ml-4">*{oi.notes}</p>}
+                            {oi.notes && <p className="text-xs text-muted-foreground italic font-medium ml-4">*{oi.notes}</p>}
                           </div>
                         ))}
                       </div>
-                      <button
-                        onClick={() => handleAdvance(order.id, "ready")}
-                        className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-600 text-slate-950 text-xs font-bold transition-all mt-2 cursor-pointer"
-                      >
-                        <CheckCircle className="h-3 w-3" />
-                        <span>Mark Ready</span>
-                      </button>
+                      {isChef && (
+                        <button
+                          onClick={() => handleAdvance(order.id, "ready")}
+                          className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold transition-all mt-2 cursor-pointer"
+                        >
+                          <CheckCircle className="h-3 w-3" />
+                          <span>Mark Ready</span>
+                        </button>
+                      )}
                     </CardContent>
                   </Card>
                 ))
@@ -202,9 +262,9 @@ export const KitchenPage: React.FC = () => {
 
           {/* COLUMN 3: READY FOR DEPARTURE */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between bg-sky-50 dark:bg-sky-500/10 p-3 rounded-lg border border-sky-200 dark:border-sky-500/20">
-              <span className="font-bold text-sky-700 dark:text-sky-400 text-sm tracking-wider uppercase">Ready to Serve</span>
-              <Badge className="bg-sky-100 dark:bg-sky-500/20 text-sky-800 dark:text-sky-400 border-none font-bold">
+            <div className="flex items-center justify-between bg-muted/40 p-3 rounded-lg border border-border">
+              <span className="font-bold text-foreground text-sm tracking-wider uppercase">Ready to Serve</span>
+              <Badge className="bg-muted text-foreground border border-border font-bold">
                 {readyOrders.length} Tickets
               </Badge>
             </div>
@@ -215,13 +275,13 @@ export const KitchenPage: React.FC = () => {
                 </div>
               ) : (
                 readyOrders.map(order => (
-                  <Card key={order.id} className="border-border bg-card text-foreground hover:border-sky-500/30 transition-all duration-300">
+                  <Card key={order.id} className="border-border bg-card text-foreground hover:border-primary/30 transition-all duration-300">
                     <CardHeader className="flex flex-row justify-between items-start pb-2 border-b border-border/50">
                       <div>
                         <span className="font-extrabold text-sm">Order #{order.id}</span>
                         <p className="text-[11px] text-muted-foreground">Table {order.table?.tableNumber || "N/A"}</p>
                       </div>
-                      <Badge className="bg-sky-100 dark:bg-sky-500/20 text-sky-800 dark:text-sky-400 border border-none text-[9px] animate-pulse">
+                      <Badge className="bg-muted text-foreground border border-border text-[9px] animate-pulse">
                         Ready
                       </Badge>
                     </CardHeader>
@@ -230,13 +290,23 @@ export const KitchenPage: React.FC = () => {
                         {order.orderItems.map((oi, idx) => (
                           <div key={oi.id || idx} className="text-sm">
                             <span className="font-bold text-primary">x{oi.quantity}</span> {oi.menuItem?.name}
-                            {oi.notes && <p className="text-xs text-rose-500 italic font-medium ml-4">*{oi.notes}</p>}
+                            {oi.notes && <p className="text-xs text-muted-foreground italic font-medium ml-4">*{oi.notes}</p>}
                           </div>
                         ))}
                       </div>
-                      <div className="flex items-center justify-center p-2 rounded-lg bg-sky-50 dark:bg-sky-500/10 border border-sky-200 dark:border-sky-500/20 text-[11px] text-sky-700 dark:text-sky-400 font-bold uppercase tracking-wider text-center">
-                        Waiting for Waiter Delivery
-                      </div>
+                      {isChef ? (
+                        <div className="flex items-center justify-center p-2 rounded-lg bg-muted/40 border border-border text-[11px] text-foreground font-bold uppercase tracking-wider text-center">
+                          Waiting for Waiter Delivery
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => handleAdvance(order.id, "served")}
+                          className="w-full flex items-center justify-center gap-1.5 py-1.5 rounded-lg bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold transition-all mt-2 cursor-pointer"
+                        >
+                          <CheckCircle className="h-3 w-3" />
+                          <span>Deliver Order</span>
+                        </button>
+                      )}
                     </CardContent>
                   </Card>
                 ))

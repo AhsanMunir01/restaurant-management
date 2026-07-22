@@ -3,6 +3,7 @@ import { useList, useCreate } from "@refinedev/core"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ShoppingBag, Plus, RefreshCw, Trash2 } from "lucide-react"
 
 interface Table {
@@ -103,19 +104,8 @@ export const OrdersPage: React.FC = () => {
     })
   }
 
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "pending":
-        return "bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-amber-500/20"
-      case "cooking":
-        return "bg-blue-50 dark:bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-500/20"
-      case "ready":
-        return "bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 border border-sky-200 dark:border-sky-500/20"
-      case "paid":
-        return "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-500/20"
-      default:
-        return "bg-slate-50 dark:bg-slate-500/10 text-slate-700 dark:text-slate-400 border border-slate-200 dark:border-slate-500/20"
-    }
+  const getStatusBadge = (_status: string) => {
+    return "bg-muted text-foreground border border-border"
   }
 
   return (
@@ -123,7 +113,7 @@ export const OrdersPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
+            <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-foreground">
               <ShoppingBag className="h-5 w-5" />
             </div>
             <div>
@@ -186,7 +176,7 @@ export const OrdersPage: React.FC = () => {
                           <p className="font-medium text-foreground">
                             {oi.menuItem?.name || "Dish Item"} <span className="text-primary font-bold">x{oi.quantity}</span>
                           </p>
-                          {oi.notes && <p className="text-xs text-rose-500 font-medium italic">*{oi.notes}</p>}
+                          {oi.notes && <p className="text-xs text-muted-foreground font-medium italic">*{oi.notes}</p>}
                         </div>
                         <span className="text-muted-foreground text-xs">
                           ${((oi.menuItem?.price || 0) * oi.quantity).toFixed(2)}
@@ -219,19 +209,22 @@ export const OrdersPage: React.FC = () => {
             {/* Table Selection */}
             <div className="space-y-1.5">
               <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Select Seating Table</label>
-              <select
-                value={selectedTable}
-                onChange={(e) => setSelectedTable(Number(e.target.value))}
-                className="w-full bg-background border border-input rounded-lg p-2.5 text-sm text-foreground focus:outline-none focus:border-primary"
-              >
-                {availableTables.length === 0 ? (
-                  <option value="">No tables currently idle (Clean them first!)</option>
-                ) : (
-                  availableTables.map(t => (
-                    <option key={t.id} value={t.id}>Table {t.tableNumber} (Capacity: {t.status})</option>
-                  ))
-                )}
-              </select>
+              <Select value={selectedTable ? String(selectedTable) : ""} onValueChange={(value) => setSelectedTable(Number(value))}>
+                <SelectTrigger>
+                  <SelectValue placeholder={availableTables.length === 0 ? "No idle tables available" : "Choose a table"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableTables.length === 0 ? (
+                    <SelectItem value="none" disabled>No tables currently idle (Clean them first!)</SelectItem>
+                  ) : (
+                    availableTables.map((t) => (
+                      <SelectItem key={t.id} value={String(t.id)}>
+                        Table {t.tableNumber} (Capacity: {t.status})
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
             </div>
 
             {/* Order Items Add Section */}
@@ -250,15 +243,25 @@ export const OrdersPage: React.FC = () => {
               <div className="max-h-56 overflow-y-auto space-y-3 pr-1">
                 {orderItems.map((item, index) => (
                   <div key={index} className="flex gap-2 items-center bg-muted/40 p-2.5 rounded-lg border border-border/50">
-                    <select
-                      value={item.menuItemId}
-                      onChange={(e) => handleItemChange(index, "menuItemId", e.target.value)}
-                      className="flex-1 bg-background border border-input rounded p-1.5 text-xs text-foreground focus:outline-none focus:border-primary"
+                    <Select
+                      value={item.menuItemId ? String(item.menuItemId) : ""}
+                      onValueChange={(value) => handleItemChange(index, "menuItemId", value)}
                     >
-                      {menuItems.map(dish => (
-                        <option key={dish.id} value={dish.id}>{dish.name} - ${dish.price.toFixed(2)}</option>
-                      ))}
-                    </select>
+                      <SelectTrigger className="flex-1 text-xs h-9">
+                        <SelectValue placeholder={menuItems.length === 0 ? "No available dishes" : "Choose dish"} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {menuItems.length === 0 ? (
+                          <SelectItem value="none" disabled>No available dishes</SelectItem>
+                        ) : (
+                          menuItems.map((dish) => (
+                            <SelectItem key={dish.id} value={String(dish.id)}>
+                              {dish.name} - ${dish.price.toFixed(2)}
+                            </SelectItem>
+                          ))
+                        )}
+                      </SelectContent>
+                    </Select>
 
                     <input
                       type="number"
@@ -279,7 +282,7 @@ export const OrdersPage: React.FC = () => {
                     <button
                       type="button"
                       onClick={() => handleRemoveItem(index)}
-                      className="text-rose-500 hover:text-rose-400 p-1 cursor-pointer"
+                      className="text-muted-foreground hover:text-foreground p-1 cursor-pointer"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>

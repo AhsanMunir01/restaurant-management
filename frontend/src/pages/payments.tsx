@@ -84,7 +84,7 @@ export const PaymentsPage: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-slate-900 border border-slate-800 flex items-center justify-center text-primary">
+          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-foreground">
             <CreditCard className="h-5 w-5" />
           </div>
           <div>
@@ -97,7 +97,7 @@ export const PaymentsPage: React.FC = () => {
             refetchOrders()
             refetchPayments()
           }}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-slate-900 transition-all font-medium cursor-pointer"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-md bg-card border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
         >
           <RefreshCw className="h-4 w-4" />
           <span>Refresh</span>
@@ -153,7 +153,7 @@ export const PaymentsPage: React.FC = () => {
                         Table {order.table?.tableNumber || "N/A"}
                       </p>
                     </div>
-                    <span className="text-xs font-bold text-amber-500 uppercase px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
+                    <span className="text-xs font-bold text-foreground uppercase px-2 py-0.5 rounded bg-muted border border-border">
                       {order.status}
                     </span>
                   </div>
@@ -193,7 +193,7 @@ export const PaymentsPage: React.FC = () => {
           <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="bg-slate-900/60 border-b border-border text-[11px] text-muted-foreground uppercase tracking-wider font-bold">
+                <thead className="bg-muted/80 border-b border-border text-[11px] text-muted-foreground uppercase tracking-wider font-bold">
                   <tr>
                     <th className="p-4">Transaction ID</th>
                     <th className="p-4">Order ID</th>
@@ -215,11 +215,7 @@ export const PaymentsPage: React.FC = () => {
                         {payment.cashier?.fullName || "System cashier"}
                       </td>
                       <td className="p-4">
-                        <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-bold border ${
-                          payment.paymentMethod === "card"
-                            ? "bg-blue-500/10 text-blue-500 border-blue-500/20"
-                            : "bg-emerald-500/10 text-emerald-500 border-emerald-500/20"
-                        }`}>
+                        <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-bold border bg-muted text-foreground border-border">
                           {payment.paymentMethod}
                         </span>
                       </td>
@@ -243,7 +239,7 @@ export const PaymentsPage: React.FC = () => {
             </CardDescription>
           </DialogHeader>
           <form onSubmit={handleCheckoutSubmit} className="space-y-6 pt-3">
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-border text-center">
+              <div className="p-4 rounded-xl bg-muted/40 border border-border text-center">
               <span className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Total Charge</span>
               <p className="text-3xl font-black text-primary mt-1">
                 ${selectedOrder?.totalAmount.toFixed(2)}
@@ -258,8 +254,8 @@ export const PaymentsPage: React.FC = () => {
                   onClick={() => setPaymentMethod("card")}
                   className={`flex flex-col items-center gap-2 p-3 rounded-lg border text-sm transition-all cursor-pointer ${
                     paymentMethod === "card"
-                      ? "border-primary bg-primary/5 text-primary"
-                      : "border-border hover:bg-slate-900 text-muted-foreground"
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border hover:bg-muted text-muted-foreground"
                   }`}
                 >
                   <Landmark className="h-5 w-5" />
@@ -270,8 +266,8 @@ export const PaymentsPage: React.FC = () => {
                   onClick={() => setPaymentMethod("cash")}
                   className={`flex flex-col items-center gap-2 p-3 rounded-lg border text-sm transition-all cursor-pointer ${
                     paymentMethod === "cash"
-                      ? "border-primary bg-primary/5 text-primary"
-                      : "border-border hover:bg-slate-900 text-muted-foreground"
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border hover:bg-muted text-muted-foreground"
                   }`}
                 >
                   <BookOpen className="h-5 w-5" />
@@ -284,7 +280,7 @@ export const PaymentsPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setIsOpen(false)}
-                className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-slate-900 transition-all font-medium cursor-pointer"
+                className="flex-1 py-2 rounded-lg border border-border text-sm text-foreground hover:bg-muted transition-all font-medium cursor-pointer"
               >
                 Cancel
               </button>

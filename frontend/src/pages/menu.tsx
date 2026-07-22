@@ -33,7 +33,7 @@ export const MenuPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
+            <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-foreground">
               <BookOpen className="h-5 w-5" />
             </div>
             <div>
@@ -59,7 +59,7 @@ export const MenuPage: React.FC = () => {
             onClick={() => setActiveCategory(category)}
             className={`px-4 py-2 rounded-lg text-sm font-semibold tracking-wide transition-all duration-300 cursor-pointer ${
               activeCategory === category
-                ? "bg-primary text-black font-extrabold shadow-lg shadow-primary/20"
+                ? "bg-primary text-primary-foreground font-extrabold shadow-sm"
                 : "bg-card border border-border text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
@@ -92,14 +92,10 @@ export const MenuPage: React.FC = () => {
                 </p>
               </div>
               <div className="px-6 py-4 bg-muted/40 border-t border-border flex items-center justify-between">
-                <Badge className="bg-background text-muted-foreground border border-border text-[9px] uppercase tracking-wider px-2 py-0.5">
+                <Badge className="bg-background text-foreground border border-border text-[9px] uppercase tracking-wider px-2 py-0.5">
                   {item.category}
                 </Badge>
-                <Badge className={`text-[9px] uppercase tracking-wider px-2 py-0.5 border ${
-                  item.isAvailable
-                    ? "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20"
-                    : "bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-500/20"
-                }`}>
+                <Badge className="text-[9px] uppercase tracking-wider px-2 py-0.5 border bg-muted text-foreground border-border">
                   {item.isAvailable ? "In Stock" : "Sold Out"}
                 </Badge>
               </div>

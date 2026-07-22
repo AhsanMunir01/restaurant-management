@@ -35,67 +35,64 @@
 
 :root {
   --background: 0 0% 100%;
-  --foreground: 20 14.3% 4.1%;
+  --foreground: 222 47% 4%;
 
   --card: 0 0% 100%;
-  --card-foreground: 20 14.3% 4.1%;
+  --card-foreground: 222 47% 4%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 20 14.3% 4.1%;
+  --popover-foreground: 222 47% 4%;
 
-  /* High-end warm restaurant bronze gold */
-  --primary: 35 90% 42%;
+  --primary: 222 47% 11%;
   --primary-foreground: 0 0% 100%;
 
-  --secondary: 35 15% 96%;
-  --secondary-foreground: 240 10% 3.9%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 222 47% 4%;
 
-  --muted: 35 10% 96%;
-  --muted-foreground: 25 5% 45%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 215 16% 46%;
 
-  --accent: 35 15% 94%;
-  --accent-foreground: 240 10% 3.9%;
+  --accent: 220 14% 94%;
+  --accent-foreground: 222 47% 4%;
 
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 20% 98%;
 
-  --border: 35 15% 90%;
-  --input: 35 15% 90%;
-  --ring: 35 90% 42%;
+  --border: 220 13% 88%;
+  --input: 220 13% 88%;
+  --ring: 222 47% 11%;
 
   --radius: 0.75rem;
 }
 
 .dark {
-  /* Luxury Charcoal/Obsidian Dark Theme */
-  --background: 240 10% 3.9%;
-  --foreground: 35 20% 98%;
+  --background: 0 0% 0%;
+  --foreground: 0 0% 98%;
 
-  --card: 240 10% 5.9%;
-  --card-foreground: 35 20% 98%;
+  --card: 0 0% 4%;
+  --card-foreground: 0 0% 98%;
 
-  --popover: 240 10% 3.9%;
-  --popover-foreground: 35 20% 98%;
+  --popover: 0 0% 4%;
+  --popover-foreground: 0 0% 98%;
 
-  /* Radiant Warm Bistro Amber Gold */
-  --primary: 38 95% 58%;
-  --primary-foreground: 240 10% 3.9%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 0%;
 
-  --secondary: 240 5.9% 10%;
-  --secondary-foreground: 35 20% 98%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 98%;
 
-  --muted: 240 5.9% 9%;
-  --muted-foreground: 240 5% 65%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 72%;
 
-  --accent: 240 5.9% 14%;
-  --accent-foreground: 35 20% 98%;
+  --accent: 0 0% 14%;
+  --accent-foreground: 0 0% 98%;
 
   --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 35 20% 98%;
+  --destructive-foreground: 0 0% 98%;
 
-  --border: 240 5.9% 14%;
-  --input: 240 5.9% 14%;
-  --ring: 38 95% 58%;
+  --border: 0 0% 14%;
+  --input: 0 0% 14%;
+  --ring: 0 0% 98%;
 }
 
 @layer base {
@@ -106,5 +103,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: radial-gradient(circle at top, hsl(var(--foreground) / 0.03), transparent 40%);
+    background-attachment: fixed;
   }
 }

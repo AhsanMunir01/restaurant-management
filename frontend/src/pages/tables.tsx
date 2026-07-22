@@ -23,15 +23,15 @@ export const TablesPage: React.FC = () => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "idle":
-        return "bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-emerald-200 dark:border-emerald-500/20"
+        return "bg-muted text-foreground border-border"
       case "occupied":
-        return "bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border-amber-200 dark:border-amber-500/20"
+        return "bg-muted text-foreground border-border"
       case "dirty":
-        return "bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border-rose-200 dark:border-rose-500/20"
+        return "bg-muted text-foreground border-border"
       case "reserved":
-        return "bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 border-sky-200 dark:border-sky-500/20"
+        return "bg-muted text-foreground border-border"
       default:
-        return "bg-slate-50 dark:bg-slate-500/10 text-slate-700 dark:text-slate-400 border-slate-200 dark:border-slate-500/20"
+        return "bg-muted text-foreground border-border"
     }
   }
 
@@ -56,7 +56,7 @@ export const TablesPage: React.FC = () => {
       <div className="flex items-center justify-between">
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
+            <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-foreground">
               <Grid3X3 className="h-5 w-5" />
             </div>
             <div>
@@ -102,7 +102,7 @@ export const TablesPage: React.FC = () => {
                 {table.status !== "occupied" && (
                   <button
                     onClick={() => handleStatusChange(table.id, "occupied")}
-                    className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-amber-50 dark:bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-200 dark:border-transparent hover:bg-amber-500 hover:text-black transition-all cursor-pointer"
+                    className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-muted text-foreground border border-border hover:bg-primary hover:text-primary-foreground transition-all cursor-pointer"
                   >
                     Occupy
                   </button>
@@ -110,7 +110,7 @@ export const TablesPage: React.FC = () => {
                 {table.status !== "dirty" && (
                   <button
                     onClick={() => handleStatusChange(table.id, "dirty")}
-                    className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-transparent hover:bg-rose-500 hover:text-white transition-all cursor-pointer"
+                    className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-muted text-foreground border border-border hover:bg-primary hover:text-primary-foreground transition-all cursor-pointer"
                   >
                     Dirty
                   </button>
@@ -118,7 +118,7 @@ export const TablesPage: React.FC = () => {
                 {table.status !== "idle" && (
                   <button
                     onClick={() => handleStatusChange(table.id, "idle")}
-                    className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-emerald-50 dark:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-transparent hover:bg-emerald-500 hover:text-black transition-all cursor-pointer"
+                    className="text-[10px] uppercase font-bold tracking-wider px-2 py-1 rounded bg-muted text-foreground border border-border hover:bg-primary hover:text-primary-foreground transition-all cursor-pointer"
                   >
                     Clean
                   </button>

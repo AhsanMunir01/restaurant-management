@@ -59,7 +59,7 @@ export const InventoryPage: React.FC = () => {
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-primary">
+          <div className="h-10 w-10 rounded-lg bg-muted border border-border flex items-center justify-center text-foreground">
             <Boxes className="h-5 w-5" />
           </div>
           <div>
@@ -91,7 +91,7 @@ export const InventoryPage: React.FC = () => {
 
             return (
               <Card key={item.id} className={`border-border bg-card text-foreground hover:border-primary/40 transition-all duration-300 ${
-                isLow ? "border-rose-500/20 bg-rose-500/[0.01]" : ""
+                isLow ? "border-border bg-muted/15" : ""
               }`}>
                 <CardHeader className="pb-3 flex flex-row items-start justify-between border-b border-border/50">
                   <div className="space-y-1">
@@ -101,7 +101,7 @@ export const InventoryPage: React.FC = () => {
                     </p>
                   </div>
                   {isLow && (
-                    <Badge className="bg-rose-500/10 text-rose-500 border border-rose-500/20 text-[9px] font-bold uppercase tracking-wider flex items-center gap-1">
+                    <Badge className="bg-muted text-foreground border border-border text-[9px] font-bold uppercase tracking-wider flex items-center gap-1">
                       <AlertTriangle className="h-2.5 w-2.5" />
                       <span>Low Stock</span>
                     </Badge>
@@ -111,7 +111,7 @@ export const InventoryPage: React.FC = () => {
                   <div className="flex justify-between items-end">
                     <div>
                       <span className="text-xs text-muted-foreground">Current Level</span>
-                      <p className={`text-2xl font-black ${isLow ? "text-rose-500" : "text-foreground"}`}>
+                      <p className="text-2xl font-black text-foreground">
                         {Number(item.quantity).toFixed(2)} <span className="text-sm font-semibold text-muted-foreground">{item.unit}</span>
                       </p>
                     </div>
@@ -131,7 +131,7 @@ export const InventoryPage: React.FC = () => {
                     <div className="w-full h-2 rounded bg-muted overflow-hidden">
                       <div
                         className={`h-full rounded transition-all duration-500 ${
-                          isLow ? "bg-rose-500" : "bg-primary"
+                          isLow ? "bg-foreground" : "bg-primary"
                         }`}
                         style={{ width: `${percentage}%` }}
                       />

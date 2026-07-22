@@ -130,7 +130,7 @@ function App() {
             </Route>
 
             {/* Kitchen Queue Protected */}
-            <Route element={<RoleProtectedRoute allowedRoles={["admin", "chef", "waiter"]} />}>
+            <Route element={<RoleProtectedRoute allowedRoles={["chef", "waiter"]} />}>
               <Route path="/kitchen" element={<KitchenPage />} />
             </Route>
 

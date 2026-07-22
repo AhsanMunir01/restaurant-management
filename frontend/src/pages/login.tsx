@@ -54,24 +54,24 @@ export const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-radial from-slate-900 to-slate-950 px-4 py-12 text-slate-100 sm:px-6 lg:px-8">
+    <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12 text-foreground sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8">
         <div className="flex flex-col items-center justify-center text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary mb-4 ring-2 ring-primary/30">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-muted text-foreground mb-4 ring-1 ring-border">
             <UtensilsCrossed className="h-6 w-6" />
           </div>
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+          <h2 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
             AETHERA
           </h2>
-          <p className="mt-2 text-sm text-slate-400">
+          <p className="mt-2 text-sm text-muted-foreground">
             Bistro & Restaurant Management System
           </p>
         </div>
 
-        <Card className="border-slate-800 bg-slate-900/60 backdrop-blur-md shadow-2xl text-slate-100">
+        <Card className="border-border bg-card/95 backdrop-blur-md shadow-xl text-foreground">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold text-center text-white">Sign in</CardTitle>
-            <CardDescription className="text-center text-slate-400">
+            <CardTitle className="text-2xl font-bold text-center text-foreground">Sign in</CardTitle>
+            <CardDescription className="text-center text-muted-foreground">
               Enter your credential to access the workspace
             </CardDescription>
           </CardHeader>
@@ -85,9 +85,9 @@ export const LoginPage: React.FC = () => {
               )}
 
               <div className="space-y-2">
-                <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Email Address</label>
+                <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Email Address</label>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
                     <Mail className="h-4 w-4" />
                   </span>
                   <Input
@@ -96,17 +96,17 @@ export const LoginPage: React.FC = () => {
                     placeholder="name@restaurant.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="pl-10 bg-slate-950/50 border-slate-800 focus-visible:ring-primary text-slate-100"
+                    className="pl-10 bg-background border-border focus-visible:ring-primary text-foreground"
                   />
                 </div>
               </div>
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">Password</label>
+                  <label className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Password</label>
                 </div>
                 <div className="relative">
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-500">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-muted-foreground">
                     <Lock className="h-4 w-4" />
                   </span>
                   <Input
@@ -115,13 +115,13 @@ export const LoginPage: React.FC = () => {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="pl-10 bg-slate-950/50 border-slate-800 focus-visible:ring-primary text-slate-100"
+                    className="pl-10 bg-background border-border focus-visible:ring-primary text-foreground"
                   />
                 </div>
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
-              <Button type="submit" disabled={loading} className="w-full bg-primary hover:bg-primary/90 text-white">
+              <Button type="submit" disabled={loading} className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
                 {loading ? "Signing in..." : "Sign In"}
               </Button>
             </CardFooter>
@@ -129,8 +129,8 @@ export const LoginPage: React.FC = () => {
         </Card>
 
         {/* Demo Fast Login Selector */}
-        <div className="rounded-xl border border-slate-800 bg-slate-900/35 p-6 backdrop-blur-sm">
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5 justify-center">
+        <div className="rounded-xl border border-border bg-card/70 p-6 backdrop-blur-sm">
+          <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-1.5 justify-center">
             <ChefHat className="h-3.5 w-3.5" />
             Developer Testing / Quick Login
           </h3>
@@ -139,41 +139,41 @@ export const LoginPage: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={() => handleQuickLogin("admin@rms.com", "admin123")}
-              className="border-slate-800 hover:bg-primary/10 hover:text-primary transition-all text-slate-300"
+              className="border-border hover:bg-accent hover:text-accent-foreground transition-all text-muted-foreground"
             >
-              Admin <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-slate-800 text-slate-300 border-0">A</Badge>
+              Admin <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-muted text-foreground border-border">A</Badge>
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleQuickLogin("manager@rms.com", "manager123")}
-              className="border-slate-800 hover:bg-sky-500/10 hover:text-sky-400 transition-all text-slate-300"
+              className="border-border hover:bg-accent hover:text-accent-foreground transition-all text-muted-foreground"
             >
-              Manager <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-slate-800 text-slate-300 border-0">M</Badge>
+              Manager <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-muted text-foreground border-border">M</Badge>
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleQuickLogin("chef@rms.com", "chef123")}
-              className="border-slate-800 hover:bg-amber-500/10 hover:text-amber-400 transition-all text-slate-300"
+              className="border-border hover:bg-accent hover:text-accent-foreground transition-all text-muted-foreground"
             >
-              Chef <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-slate-800 text-slate-300 border-0">C</Badge>
+              Chef <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-muted text-foreground border-border">C</Badge>
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleQuickLogin("waiter@rms.com", "waiter123")}
-              className="border-slate-800 hover:bg-emerald-500/10 hover:text-emerald-400 transition-all text-slate-300 col-span-1 sm:col-span-1"
+              className="border-border hover:bg-accent hover:text-accent-foreground transition-all text-muted-foreground col-span-1 sm:col-span-1"
             >
-              Waiter <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-slate-800 text-slate-300 border-0">W</Badge>
+              Waiter <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-muted text-foreground border-border">W</Badge>
             </Button>
             <Button
               variant="outline"
               size="sm"
               onClick={() => handleQuickLogin("cashier@rms.com", "cashier123")}
-              className="border-slate-800 hover:bg-rose-500/10 hover:text-rose-400 transition-all text-slate-300 col-span-2 sm:col-span-2"
+              className="border-border hover:bg-accent hover:text-accent-foreground transition-all text-muted-foreground col-span-2 sm:col-span-2"
             >
-              Cashier <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-slate-800 text-slate-300 border-0">Cash</Badge>
+              Cashier <Badge variant="secondary" className="ml-1 px-1 py-0 text-[9px] bg-muted text-foreground border-border">Cash</Badge>
             </Button>
           </div>
         </div>

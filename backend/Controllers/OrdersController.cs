@@ -38,7 +38,7 @@ namespace RMS.Api.Controllers
         }
 
         [HttpGet("kitchen")]
-        [Authorize(Roles = "admin,manager,chef")]
+        [Authorize(Roles = "chef,waiter")]
         public async Task<IActionResult> GetKitchenQueue()
         {
             var orders = await _context.Orders
@@ -102,11 +102,30 @@ namespace RMS.Api.Controllers
         }
 
         [HttpPut("{id}/status")]
-        [Authorize(Roles = "admin,manager,chef,waiter")]
+        [Authorize(Roles = "chef,waiter")]
         public async Task<IActionResult> UpdateStatus(int id, [FromBody] string status)
         {
             var order = await _context.Orders.FindAsync(id);
             if (order == null) return NotFound(new { message = "Order not found" });
+
+            var role = User.FindFirst(ClaimTypes.Role)?.Value;
+            if (string.IsNullOrWhiteSpace(role)) return Forbid();
+
+            status = status.Trim().ToLowerInvariant();
+            var currentStatus = order.Status.Trim().ToLowerInvariant();
+
+            var isAllowedTransition = role switch
+            {
+                "chef" => (currentStatus == "pending" && status == "cooking") ||
+                           (currentStatus == "cooking" && status == "ready"),
+                "waiter" => currentStatus == "ready" && status == "served",
+                _ => false,
+            };
+
+            if (!isAllowedTransition)
+            {
+                return Forbid();
+            }
 
             order.Status = status;
             await _context.SaveChangesAsync();

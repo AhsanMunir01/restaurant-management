@@ -99,13 +99,13 @@ export const DashboardPage: React.FC = () => {
             <CardTitle className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
               Total Revenue
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-emerald-500/10 text-emerald-500 dark:text-emerald-400 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-muted text-foreground flex items-center justify-center border border-border">
               <DollarSign className="h-4 w-4" />
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-extrabold text-foreground">${totalRevenue.toFixed(2)}</div>
-            <p className="text-xs text-emerald-500 dark:text-emerald-400 flex items-center gap-1 mt-1 font-medium">
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1 font-medium">
               <TrendingUp className="h-3 w-3" />
               <span>Live database billing total</span>
             </p>
@@ -117,7 +117,7 @@ export const DashboardPage: React.FC = () => {
             <CardTitle className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
               Active Orders
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-primary/10 text-primary flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-muted text-foreground flex items-center justify-center border border-border">
               <ShoppingBag className="h-4 w-4" />
             </div>
           </CardHeader>
@@ -135,7 +135,7 @@ export const DashboardPage: React.FC = () => {
             <CardTitle className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
               Table Occupancy
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-sky-50 dark:bg-sky-500/10 text-sky-700 dark:text-sky-400 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-muted text-foreground flex items-center justify-center border border-border">
               <Users className="h-4 w-4" />
             </div>
           </CardHeader>
@@ -143,7 +143,7 @@ export const DashboardPage: React.FC = () => {
             <div className="text-2xl font-extrabold text-foreground">
               {occupiedTablesCount} / {tables.length}
             </div>
-            <p className="text-xs text-sky-600 dark:text-sky-400 flex items-center gap-1 mt-1 font-medium">
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1 font-medium">
               <span>
                 {tables.length > 0 ? Math.round((occupiedTablesCount / tables.length) * 100) : 0}% occupancy rate
               </span>
@@ -156,13 +156,13 @@ export const DashboardPage: React.FC = () => {
             <CardTitle className="text-sm font-semibold tracking-wide uppercase text-muted-foreground">
               Critical Stock
             </CardTitle>
-            <div className="h-8 w-8 rounded-full bg-rose-50 dark:bg-rose-500/10 text-rose-700 dark:text-rose-400 flex items-center justify-center">
+            <div className="h-8 w-8 rounded-full bg-muted text-foreground flex items-center justify-center border border-border">
               <Boxes className="h-4 w-4" />
             </div>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-extrabold text-foreground">{criticalStockCount} Items</div>
-            <p className="text-xs text-rose-500 dark:text-rose-400 flex items-center gap-1 mt-1 font-medium">
+            <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1 font-medium">
               <span>Below reorder warning level</span>
             </p>
           </CardContent>
@@ -195,7 +195,7 @@ export const DashboardPage: React.FC = () => {
                       <p className="text-sm font-bold text-foreground">${tx.amount.toFixed(2)}</p>
                       <p className="text-[10px] text-muted-foreground font-semibold uppercase">{tx.paymentMethod}</p>
                     </div>
-                    <Badge className="bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 text-[10px] py-0 px-2 font-bold uppercase">
+                    <Badge className="bg-muted text-foreground border border-border text-[10px] py-0 px-2 font-bold uppercase">
                       Paid
                     </Badge>
                   </div>
@@ -224,7 +224,7 @@ export const DashboardPage: React.FC = () => {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-bold text-foreground">${dish.revenue.toFixed(2)}</p>
-                    <Link to="/menu" className="text-[10px] text-primary flex items-center justify-end hover:underline">
+                    <Link to="/menu" className="text-[10px] text-foreground flex items-center justify-end hover:underline">
                       View Menu <ArrowUpRight className="h-2.5 w-2.5 ml-0.5" />
                     </Link>
                   </div>
